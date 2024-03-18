@@ -1,4 +1,3 @@
-const { ObjectId } = require('mongoose').Types;
 const { User, Thought } = require('../models');
 
 module.exports = {
@@ -102,7 +101,7 @@ async removeFriend (req, res) {
     try {
         const user = await User.findOneAndUpdate(
             { _id: req.params.userId },
-            { $pull: { friends: req.params.friendId } },
+            { $pull: { friends: { friendId: req.params.friendId } } },
             { runValidators: true, new: true }
         );
 
