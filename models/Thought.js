@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 const reactionSchema = require('./Reaction');
 
 const thoughtSchema = new Schema(
@@ -12,6 +12,7 @@ const thoughtSchema = new Schema(
       createdAt: {
         type: Date,
         default: Date.now,
+        get: timestamp => dateFormat(timestamp)
       },
       username: {
         type: String,
@@ -27,6 +28,10 @@ const thoughtSchema = new Schema(
         id: false
     }
 );
+
+function dateFormat(timestamp) {
+  return timestamp.toLocaleString();
+}
 
 //Create a virtual called reactionCount that retrieves the length of the thought's reactions array field on query.
 
